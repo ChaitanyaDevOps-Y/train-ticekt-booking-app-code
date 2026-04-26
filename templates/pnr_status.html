@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNR Status - IRCTC</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-train"></i>
+                <span class="logo-text">IRCTC</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/#search" class="nav-link">Book Ticket</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="pnr-status-container">
+        <div class="container">
+            <h2>PNR Status</h2>
+            
+            {% if booking %}
+                <div class="status-card confirmed">
+                    <div class="status-header">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Booking Confirmed</h3>
+                        <p>PNR: {{ pnr }}</p>
+                    </div>
+                    <div class="status-details">
+                        <div class="detail-row">
+                            <span class="label">Train:</span>
+                            <span class="value">{{ booking.train_name }} ({{ booking.train_number }})</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Journey Date:</span>
+                            <span class="value">{{ booking.journey_date }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Class:</span>
+                            <span class="value">{{ booking.class }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Passengers:</span>
+                            <span class="value">{{ booking.passengers|length }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Status:</span>
+                            <span class="value confirmed-text">{{ booking.status }}</span>
+                        </div>
+                    </div>
+                    <div class="status-actions">
+                        <a href="/cancel_booking/{{ booking.pnr }}" class="cancel-btn" onclick="return confirm('Are you sure you want to cancel this booking?')">Cancel Ticket</a>
+                        <a href="/" class="home-btn">Book New Ticket</a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="status-card not-found">
+                    <div class="status-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Booking Not Found</h3>
+                        <p>No booking found with PNR: {{ pnr }}</p>
+                    </div>
+                    <div class="status-actions">
+                        <a href="/" class="home-btn">Go to Home</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation - IRCTC</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-train"></i>
+                <span class="logo-text">IRCTC</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="confirmation-container">
+        <div class="container">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Booking Confirmed!</h2>
+            <p>Your ticket has been booked successfully</p>
+
+            <div class="ticket-card">
+                <div class="ticket-header">
+                    <div class="ticket-logo">
+                        <i class="fas fa-train"></i>
+                        <h3>IRCTC E-Ticket</h3>
+                    </div>
+                    <div class="pnr">PNR: {{ booking.pnr }}</div>
+                </div>
+
+                <div class="ticket-body">
+                    <div class="train-info-ticket">
+                        <h4>{{ booking.train_name }}</h4>
+                        <p>Train Number: {{ booking.train_number }}</p>
+                        <p>Class: {{ booking.class }} | Status: {{ booking.status }}</p>
+                    </div>
+
+                    <div class="journey-details-ticket">
+                        <div class="passenger-list">
+                            <h5>Passenger Details:</h5>
+                            {% for passenger in booking.passengers %}
+                            <div class="passenger-item">
+                                <span>{{ passenger.name }}</span>
+                                <span>Age: {{ passenger.age }}</span>
+                                <span>{{ passenger.gender }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="booking-summary">
+                        <p>Booking Date: {{ booking.booking_date }}</p>
+                        <p>Journey Date: {{ booking.journey_date }}</p>
+                        <p>Total Amount: ₹{{ booking.total_amount }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button onclick="window.print()" class="print-btn"><i class="fas fa-print"></i> Print Ticket</button>
+                <a href="/" class="home-btn">Book Another Ticket</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

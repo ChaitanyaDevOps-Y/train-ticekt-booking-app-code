@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - IRCTC</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-train"></i>
+                <span class="logo-text">IRCTC</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="booking-container">
+        <div class="container">
+            <div class="booking-header">
+                <h2>Passenger Details</h2>
+                <div class="train-summary">
+                    <h3>{{ train.name }} ({{ train.number }})</h3>
+                    <p>{{ train.from }} → {{ train.to }} | {{ train.departure }} - {{ train.arrival }}</p>
+                    <p>Class: {{ class_type }} | Price: ₹{{ price }} per passenger</p>
+                </div>
+            </div>
+
+            <form action="/confirm_booking" method="POST" class="booking-form" id="bookingForm">
+                <input type="hidden" name="train_number" value="{{ train.number }}">
+                <input type="hidden" name="train_name" value="{{ train.name }}">
+                <input type="hidden" name="class_type" value="{{ class_type }}">
+                <input type="hidden" name="price" value="{{ price }}">
+                
+                <div class="form-group">
+                    <label>Journey Date</label>
+                    <input type="date" name="journey_date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Number of Passengers (Max: {{ max_passengers }})</label>
+                    <input type="number" name="passenger_count" id="passengerCount" min="1" max="{{ max_passengers }}" value="1" required>
+                </div>
+
+                <div id="passengerDetails"></div>
+
+                <div class="total-amount">
+                    <h3>Total Amount: ₹<span id="totalAmount">{{ price }}</span></h3>
+                </div>
+
+                <button type="submit" class="confirm-btn">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const price = {{ price }};
+        const maxPassengers = {{ max_passengers }};
+        
+        document.getElementById('passengerCount').addEventListener('change', function() {
+            const count = parseInt(this.value);
+            const container = document.getElementById('passengerDetails');
+            container.innerHTML = '';
+            
+            for(let i = 0; i < count; i++) {
+                container.innerHTML += `
+                    <div class="passenger-card">
+                        <h4>Passenger ${i + 1}</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" name="passenger_name_${i}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="number" name="passenger_age_${i}" min="1" max="120" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select name="passenger_gender_${i}" required>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('totalAmount').innerText = price * count;
+        });
+        
+        // Trigger initial passenger form
+        document.getElementById('passengerCount').dispatchEvent(new Event('change'));
+    </script>
+</body>
+</html>

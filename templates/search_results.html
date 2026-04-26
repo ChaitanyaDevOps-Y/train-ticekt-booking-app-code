@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - IRCTC</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-train"></i>
+                <span class="logo-text">IRCTC</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/#search" class="nav-link active">Book Ticket</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="results-container">
+        <div class="container">
+            <div class="search-summary">
+                <h2>Trains from <span>{{ from_station }}</span> to <span>{{ to_station }}</span></h2>
+                <p>Date: {{ date }} | Class: {{ class_type }}</p>
+            </div>
+
+            {% if trains %}
+                <div class="trains-list">
+                    {% for train in trains %}
+                    <div class="train-card">
+                        <div class="train-header">
+                            <div class="train-info">
+                                <h3>{{ train.name }}</h3>
+                                <p class="train-number">{{ train.number }}</p>
+                            </div>
+                            <div class="train-actions">
+                                <a href="/book/{{ train.number }}/{{ train.class }}/{{ train.price }}" class="book-btn">Book Now</a>
+                            </div>
+                        </div>
+                        <div class="train-details">
+                            <div class="station">
+                                <div class="time">{{ train.departure }}</div>
+                                <div class="station-name">{{ train.from }}</div>
+                            </div>
+                            <div class="journey-line">
+                                <div class="duration">{{ train.duration }}</div>
+                                <div class="line"></div>
+                            </div>
+                            <div class="station">
+                                <div class="time">{{ train.arrival }}</div>
+                                <div class="station-name">{{ train.to }}</div>
+                            </div>
+                            <div class="price-info">
+                                <div class="price">₹{{ train.price }}</div>
+                                <div class="availability">{{ train.available }} seats available</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-results">
+                    <i class="fas fa-train"></i>
+                    <h3>No trains found</h3>
+                    <p>Please try different stations or date</p>
+                    <a href="/" class="back-btn">Search Again</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
