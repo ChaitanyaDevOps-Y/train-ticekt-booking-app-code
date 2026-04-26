@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRCTC - Indian Railway Catering and Tourism Corporation</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-train"></i>
+                <span class="logo-text">IRCTC</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link active">Home</a></li>
+                <li><a href="#search" class="nav-link">Book Ticket</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Book Your Train Journey</h1>
+            <p class="hero-subtitle">Safe & Secure Ticket Booking Experience</p>
+            <div class="search-container" id="search">
+                <form action="/search" method="POST" class="search-form">
+                    <div class="input-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" name="from" placeholder="From Station" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-location-dot"></i>
+                        <input type="text" name="to" placeholder="To Station" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-calendar"></i>
+                        <input type="date" name="date" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-chair"></i>
+                        <select name="class" required>
+                            <option value="">Select Class</option>
+                            <option value="1A">First Class AC (1A)</option>
+                            <option value="2A">2 Tier AC (2A)</option>
+                            <option value="3A">3 Tier AC (3A)</option>
+                            <option value="SL">Sleeper (SL)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i> Search Trains
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose IRCTC</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Secure Booking</h3>
+                    <p>100% secure payment gateway</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-ticket-alt"></i>
+                    <h3>Easy Cancellation</h3>
+                    <p>Instant refund on cancellation</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>24/7 Support</h3>
+                    <p>Customer support anytime</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-wifi"></i>
+                    <h3>Free WiFi</h3>
+                    <p>Complimentary onboard WiFi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pnr-section">
+        <div class="container">
+            <h2 class="section-title">Check PNR Status</h2>
+            <form action="/check_pnr" method="POST" class="pnr-form">
+                <input type="text" name="pnr" placeholder="Enter 10-digit PNR Number" pattern="[A-Z0-9]{10}" required>
+                <button type="submit">Check Status</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>IRCTC</h3>
+                    <p>Indian Railway Catering and Tourism Corporation</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="#search">Book Ticket</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-phone"></i> 1800-111-139</p>
+                    <p><i class="fas fa-envelope"></i> care@irctc.co.in</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 IRCTC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
